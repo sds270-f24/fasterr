@@ -1,0 +1,20 @@
+Package: fasterr
+Title: fasterr
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Molly", "Daniel", , "mjdaniel@smith.edu", role = c("aut", "cre")),
+    person("Emma", "Ruckle", , "emruckle@smith.edu", role = c("aut"))
+  )
+Description: fasterr optimizes R programming be replacing slow R code with faster, equivalent C++ code.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    Rcpp,
+LinkingTo: 
+    Rcpp
+Suggests: 
+    bench,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
