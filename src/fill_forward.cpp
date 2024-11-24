@@ -3,9 +3,11 @@ using namespace Rcpp;
 
 /**
  *  Iterates over columns in a DataFrame identifying NA values, and replacing the NA values with the last non NA value seen in the column
+ *  Mimics functionality of tidyr::fill with default direction (down)
  * 
  * @param df DataFrame to be cleaned
- * @return DataFrame Cleaned DataFrame with NA rows removed
+ * @param column_names CharacterVector columns to be filled
+ * @return DataFrame Cleaned DataFrame with NA rows is designated columns filled
  */
 // [[Rcpp::export]]
 DataFrame fill_forward(DataFrame df, CharacterVector column_names) {
