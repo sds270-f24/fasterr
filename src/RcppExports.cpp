@@ -22,6 +22,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// full_seq
+NumericVector full_seq(NumericVector x, double step);
+RcppExport SEXP _fasterr_full_seq(SEXP xSEXP, SEXP stepSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type step(stepSEXP);
+    rcpp_result_gen = Rcpp::wrap(full_seq(x, step));
+    return rcpp_result_gen;
+END_RCPP
+}
 // index_rows_na
 LogicalVector index_rows_na(DataFrame df);
 RcppExport SEXP _fasterr_index_rows_na(SEXP dfSEXP) {
@@ -36,6 +48,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fasterr_fill_forward", (DL_FUNC) &_fasterr_fill_forward, 2},
+    {"_fasterr_full_seq", (DL_FUNC) &_fasterr_full_seq, 2},
     {"_fasterr_index_rows_na", (DL_FUNC) &_fasterr_index_rows_na, 1},
     {NULL, NULL, 0}
 };
