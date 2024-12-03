@@ -5,6 +5,10 @@ fill_forward <- function(df, column_names) {
     .Call(`_fasterr_fill_forward`, df, column_names)
 }
 
+full_seq <- function(x, step) {
+    .Call(`_fasterr_full_seq`, x, step)
+}
+
 index_rows_na <- function(df) {
     .Call(`_fasterr_index_rows_na`, df)
 }
