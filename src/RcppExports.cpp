@@ -10,6 +10,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// fill_forward
+DataFrame fill_forward(DataFrame df, CharacterVector column_names);
+RcppExport SEXP _fasterr_fill_forward(SEXP dfSEXP, SEXP column_namesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type column_names(column_namesSEXP);
+    rcpp_result_gen = Rcpp::wrap(fill_forward(df, column_names));
+    return rcpp_result_gen;
+END_RCPP
+}
 // index_rows_na
 LogicalVector index_rows_na(DataFrame df);
 RcppExport SEXP _fasterr_index_rows_na(SEXP dfSEXP) {
@@ -23,6 +35,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_fasterr_fill_forward", (DL_FUNC) &_fasterr_fill_forward, 2},
     {"_fasterr_index_rows_na", (DL_FUNC) &_fasterr_index_rows_na, 1},
     {NULL, NULL, 0}
 };
