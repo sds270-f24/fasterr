@@ -6,11 +6,11 @@ test_that("fill NA with small sample df", {
     factor_col = factor(c("low", NA, "high", NA, "medium")),  # Factor column with NAs
     stringsAsFactors = FALSE
   )
-  all.equal(tidyr::fill(df, "num_col", "char_col", "log_col", "factor_col"), fill_forward(df, c("num_col", "char_col", "log_col", "factor_col")))
+  expect_equal(tidyr::fill(df, "num_col", "char_col", "log_col", "factor_col"), fill_forward(df, c("num_col", "char_col", "log_col", "factor_col")))
 })
 
 test_that("fill NA with large df", {
-  all.equal(tidyr::fill(airquality, "Ozone", "Solar.R"), fill_forward(airquality,c("Ozone", "Solar.R")))
+  expect_equal(tidyr::fill(airquality, "Ozone", "Solar.R"), fill_forward(airquality,c("Ozone", "Solar.R")))
 })
 
 test_that("skipping benchmark tests", {
@@ -20,5 +20,5 @@ test_that("skipping benchmark tests", {
     fill_forward(airquality,c("Ozone", "Solar.R"))
   )
   system.time(replicate(1000, tidyr::fill(airquality, "Ozone", "Solar.R")))
-  system.time(replicate(10000, fill_forward(airquality,c("Ozone", "Solar.R"))))
+  system.time(replicate(1000, fill_forward(airquality,c("Ozone", "Solar.R"))))
 })
