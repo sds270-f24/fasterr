@@ -5,7 +5,7 @@ using namespace Rcpp;
  *  Iterates over a DataFrame, identifying rows with NA values
  * 
  * @param df DataFrame to be cleaned
- * @return data.frame Cleaned DataFrame with NA rows removed
+ * @return DataFrame Cleaned DataFrame with NA rows removed
  */
 // [[Rcpp::export]]
 LogicalVector index_rows_na(DataFrame df) {
