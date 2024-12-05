@@ -65,14 +65,14 @@ step <- 2
     
 full_seq_results <- microbenchmark::microbenchmark(
     tidyr_full_seq = tidyr::full_seq(seq, step),
-    fasterr_full_seq = full_seq(seq, step),
+    fasterr_full_seq = fasterr:::full_seq(seq, step),
     times = 100
   )
 
 summary(full_seq_results)
-#>               expr    min      lq       mean  median      uq        max neval
-#> 1   tidyr_full_seq 32.696 35.4750 4907.47355 39.4355 66.0900 484477.553   100
-#> 2 fasterr_full_seq  2.918  5.1495   10.03492  6.3360 11.1135     77.856   100
+#>               expr    min      lq       mean median      uq        max neval
+#> 1   tidyr_full_seq 30.865 31.8840 4926.25004 32.713 33.2025 489230.075   100
+#> 2 fasterr_full_seq  2.353  2.6675    8.97584  3.746  4.0060    543.471   100
 ggplot2::autoplot(full_seq_results)
 ```
 
@@ -83,17 +83,17 @@ ggplot2::autoplot(full_seq_results)
 ``` r
 fill_results <- microbenchmark::microbenchmark(
     tidyr_fill = tidyr::fill(airquality, "Ozone", "Solar.R"),
-    fasterr_fill_forward = fill_forward(airquality,c("Ozone", "Solar.R")),
+    fasterr_fill_forward = fasterr:::fill_forward(airquality,c("Ozone", "Solar.R")),
     times = 100
   )
 
 summary(fill_results)
-#>                   expr      min        lq        mean    median       uq
-#> 1           tidyr_fill 6235.070 6710.0680 11914.66448 9649.3180 15646.20
-#> 2 fasterr_fill_forward   15.056   16.7985    41.03662   32.7845    39.42
+#>                   expr      min       lq       mean    median       uq
+#> 1           tidyr_fill 6299.547 6521.974 8119.05797 6904.6345 8829.179
+#> 2 fasterr_fill_forward    6.412    7.654   17.22815   13.2055   19.206
 #>         max neval
-#> 1 47763.527   100
-#> 2   282.237   100
+#> 1 30753.347   100
+#> 2   286.735   100
 ggplot2::autoplot(fill_results)
 ```
 
@@ -110,8 +110,8 @@ omit_na_results <- microbenchmark::microbenchmark(
 
 summary(omit_na_results)
 #>              expr     min       lq     mean   median       uq     max neval
-#> 1   stats_na.omit 137.026 149.7575 153.9529 152.6165 155.3315 237.377   100
-#> 2 fasterr_omit_na 105.054 112.2325 117.7229 115.3685 119.8260 204.473   100
+#> 1   stats_na.omit 134.890 147.8000 153.2393 150.7025 153.9625 220.966   100
+#> 2 fasterr_omit_na  86.229  94.8345 100.9101  97.6380 100.5295 254.960   100
 ggplot2::autoplot(omit_na_results)
 ```
 
