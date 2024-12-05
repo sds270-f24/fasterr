@@ -1,0 +1,31 @@
+---
+title: "fasterr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+Welcome to fasterr! This package is designed to optimize existing functions in the Tidyverse package. Let's get started by installing the package.
+
+## Installation
+
+First install the package by running:
+```{r setup, eval=FALSE}
+remotes::install_github("sds270-f24/fasterr")
+```
+
+Then, to load the package run this command:
+```{r}
+library(fasterr)
+```
+
+## Using the functions
+
