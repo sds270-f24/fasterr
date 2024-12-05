@@ -13,50 +13,60 @@ using namespace Rcpp;
 DataFrame fill_forward(DataFrame df, CharacterVector column_names) {
   int rows = df.nrows(); // get number of rows in df
   
-  for (int i = 0; i < column_names.size(); i++) { // iterate through columns to fill
-    String col_name = column_names[i]; // get the name of the column to fill
-    SEXP column = df[col_name]; // find that column in the df
+  for (int i = 0; i < column_names.size(); i++) { // iterate through columns in column names
+    String col_name = column_names[i]; // get name of current column
+    SEXP column = df[col_name]; // SEXP = generic R object
     
-    if (Rf_isNumeric(column) || Rf_isFactor(column)) { // if column is numeric or factor
-      IntegerVector col = as<IntegerVector>(column); // cast column as integer vector
-      int last_valid = (Rf_isLogical(column)) ? NA_LOGICAL : // if column is logical, last_valid = NA_LOGICAL
-        (Rf_isNumeric(column)) ? NA_REAL : NA_INTEGER; // if column is NOT logical, if column is numeric last_valid = NA_REAL, if not numeric last_valid = NA_INTEGER (this is for factors)
+    if (Rf_isLogical(column)) { // if column is logical
+      LogicalVector col = as<LogicalVector>(column); // cast column as logical vector
+      int last_valid = NA_LOGICAL; // init last_valid to NA_LOGICAL (NA for logical type)
       for (int j = 0; j < rows; j++) { // iterate through rows in column
-        if (ISNA(col[j])) { // if row is NA, fill with last valid value
-          col[j] = last_valid;
-        }
-        else { // otherwise update last valid value
-          last_valid = col[j]; 
-        }
-      }
-      df[col_name] = col; // set column in df equal to updated column
-    } 
-    else if (Rf_isLogical(column)) { // check if column is logical
-      LogicalVector col = as<LogicalVector>(column); // cast as logical vector
-      int last_valid = NA_LOGICAL; // init last valid value to NA
-      for (int j = 0; j < rows; j++) { // iterate through rows in column
-        if (LogicalVector::is_na(col[j])) { // // if value is NA
-          col[j] = last_valid; // replace NA with last valid value
+        if (LogicalVector::is_na(col[j])) { // if row is NA
+          col[j] = last_valid; // fill with last_valid
         }
         else {
-          last_valid = col[j]; // otherwise, update last_valid value
+          last_valid = col[j]; // otherwise, update last valid
         }
       }
-      df[col_name] = col; // assign modified column to old columns location in df
+      df[col_name] = col; // put updated column in df
     }
-    else if (Rf_isString(column)) { // if column is string 
-      CharacterVector col = as<CharacterVector>(column); // cast as char vector
-      String last_valid = NA_STRING; // set last_valid = NA
-      for (int j = 0; j < rows; j++) { // iterate through columns
-        if (CharacterVector::is_na(col[j])) { // check if NA
-          col[j] = last_valid; // set row to last_valid
+    else if (Rf_isNumeric(column)) { // if column is numeric
+      NumericVector col = as<NumericVector>(column); // cast column as numeric vector
+      double last_valid = NA_REAL; // init last_valid to NA
+      for (int j = 0; j < rows; j++) { // iterate through rows in column
+        if (NumericVector::is_na(col[j])) { // if NA, update with last_valid
+          col[j] = last_valid;
         }
-        else { // otherwise update last_valid
+        else {
+          last_valid = col[j]; // otherwise, update last_valid
+        }
+      }
+      df[col_name] = col;
+    }
+    else if (Rf_isFactor(column)) { // if column is factor
+      IntegerVector col = as<IntegerVector>(column);
+      int last_valid = NA_INTEGER;
+      for (int j = 0; j < rows; j++) {
+        if (col[j] == NA_INTEGER) {
+          col[j] = last_valid;
+        } else {
           last_valid = col[j];
         }
       }
-      df[col_name] = col; // assign modified column to old columns loc in df
+      df[col_name] = col;
+    }
+    else if (Rf_isString(column)) { // if column is character
+      CharacterVector col = as<CharacterVector>(column);
+      String last_valid = NA_STRING;
+      for (int j = 0; j < rows; j++) {
+        if (CharacterVector::is_na(col[j])) {
+          col[j] = last_valid;
+        } else {
+          last_valid = col[j];
+        }
+      }
+      df[col_name] = col;
     }
   }
-  return df;
+  return df; // return updated df
 }
