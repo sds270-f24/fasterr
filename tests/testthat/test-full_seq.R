@@ -4,6 +4,12 @@ test_that("rcpp full seq gives the same output as tidyr full seq on a small sequ
   expect_equal(tidyr::full_seq(seq, step), full_seq(seq, step))
 })
 
+test_that("rcpp full seq gives the same output as tidyr full seq on a second small sequence", {
+  seq <- c(1, 5, 7, 9, 17)
+  step <- 2
+  expect_equal(tidyr::full_seq(seq, step), full_seq(seq, step))
+})
+
 test_that("rcpp full seq gives the same output as tidyr full seq on a large sequence", {
   seq <- sample(1:1000, size = 500, replace = TRUE)
   step <- 1
