@@ -5,7 +5,6 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-devtools::load_all()
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -63,7 +62,7 @@ step <- 2
     
 full_seq_results <- microbenchmark::microbenchmark(
     tidyr_full_seq = tidyr::full_seq(seq, step),
-    fasterr_full_seq = full_seq(seq, step),
+    fasterr_full_seq = fasterr:::full_seq(seq, step),
     times = 100
   )
 
@@ -75,7 +74,7 @@ ggplot2::autoplot(full_seq_results)
 ```{r fill_forward}
 fill_results <- microbenchmark::microbenchmark(
     tidyr_fill = tidyr::fill(airquality, "Ozone", "Solar.R"),
-    fasterr_fill_forward = fill_forward(airquality,c("Ozone", "Solar.R")),
+    fasterr_fill_forward = fasterr:::fill_forward(airquality,c("Ozone", "Solar.R")),
     times = 100
   )
 

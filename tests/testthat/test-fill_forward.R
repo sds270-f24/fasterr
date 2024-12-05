@@ -13,6 +13,10 @@ test_that("fill NA with large df", {
   expect_equal(tidyr::fill(airquality, "Ozone", "Solar.R"), fill_forward(airquality,c("Ozone", "Solar.R")))
 })
 
+test_that("fill NA with large df with no NA", {
+  expect_equal(tidyr::fill(mtcars, "disp", "hp"), fill_forward(mtcars,c("disp", "hp")))
+})
+
 test_that("skipping benchmark tests", {
   skip('skip')
   bench::mark(
