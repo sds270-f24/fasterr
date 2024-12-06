@@ -13,19 +13,45 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Welcome to fasterr! This package is designed to optimize existing functions in the Tidyverse package. Let's get started by installing the package.
+
+Welcome to fasterr! This package is designed to optimize existing functions in the tidyr package. Let's get started by installing the package.
 
 ## Installation
 
 First install the package by running:
+
 ```{r setup, eval=FALSE}
 remotes::install_github("sds270-f24/fasterr")
 ```
 
 Then, to load the package run this command:
+
 ```{r}
 library(fasterr)
 ```
 
 ## Using the functions
 
+To use fasterr's functions, simply call them like you would call the tidyr functions, but with fasterr::: before the function name. Here's some examples of how and when you might like to use each function:
+
+### full_seq
+
+If I had an incomplete sequence and I wanted to fill in the values with a certain interval between each element, I could use `full_seq`. Given an incomplete sequence and a step size, `full_seq` will return the sequence filled from the lowest to highest value with the specified step size between elements. Using `fasterr:::full_seq` will fill the sequence faster than the `tidyr` equivalent.
+
+```{r eval=FALSE}
+fasterr:::full_seq(c(1, 2, 5, 7), 1)
+```
+
+### fill_forward
+
+If I had a `data.frame` with `NA` values, and I didn't want to omit them or keep them as `NA`, I could use fill_forward to fill each `NA` value with the last valid non `NA` value in the `data.frame`. This function takes in a `data.frame` and the columns in which you'd like the `NA` values to be filled. It will return the `data.frame` with all `NA` values from specified columns filled. Using `fasterr:::fill_forward` will fill the `data.frame` faster than the `tidyr` equivalent.
+
+```{r eval=FALSE}
+fasterr:::fill_forward(airquality,c("Ozone", "Solar.R"))
+```
+
+### omit_na
+If I had a `data.frame` with `NA` values, I could use omit_na to remove the rows with `NA` values. This function takes in a `data.frame` as input and outputs the `data.frame` without the rows containing `NA`. The function stores information about which rows have been removed in an attribute of the cleaned `data.frame`.Using `fasterr:::omit_na` will remove `NA` values faster than the `tidyr` equivalent.
+```{r eval=FALSE}
+fasterr:::omit_na(airquality)
+```

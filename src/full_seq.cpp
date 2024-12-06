@@ -8,7 +8,6 @@ using namespace Rcpp;
  * @param x NumericVector normal sequence to be filled
  * @param step double step between items in the sequence
  * @return NumericVector filled sequence
- * @export
  */
 // [[Rcpp::export]]
 NumericVector full_seq(NumericVector x, double step) {
