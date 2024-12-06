@@ -45,7 +45,7 @@ library(fasterr)
 
 ## Original Functions
 - [`tidyr::full_seq()`](https://tidyr.tidyverse.org/reference/full_seq.html)
-  - what does this do?
+  - This function creates the full sequence of values in a vector. It takes in a numeric vector, a period, and the numerical tolerance for checking periodicity. Our `fasterr` version does not take in numerical tolerance, instead not taking into account any tolerance. 
 - [`tidyr::fill()`](https://tidyr.tidyverse.org/reference/fill.html)
   - This function cleans an inputted `data.frame` by filling `NA` values. It takes in a direction as input, with the default being "down." Our `fasterr` version does not take in a direction, using the default, meaning `NA` values are filled with the last valid non `NA` value as you move down the `data.frame`.
 - [`stats::na.omit()`](https://www.rdocumentation.org/packages/data.table/versions/1.16.2/topics/na.omit.data.table)
