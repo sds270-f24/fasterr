@@ -38,19 +38,21 @@ library(fasterr)
 
 ## Original Functions
 
--   [`tidyr::full_seq()`](https://tidyr.tidyverse.org/reference/full_seq.html)
-    -   what does this do?
--   [`tidyr::fill()`](https://tidyr.tidyverse.org/reference/fill.html)
-    -   This function cleans an inputted `data.frame` by filling `NA`
-        values. It takes in a direction as input, with the default being
-        “down.” Our `fasterr` version does not take in a direction,
-        using the default, meaning `NA` values are filled with the last
-        valid non `NA` value as you move down the `data.frame`.
--   [`stats::na.omit()`](https://www.rdocumentation.org/packages/data.table/versions/1.16.2/topics/na.omit.data.table)
-    -   This function cleans an inputted `data.frame`, removing rows
-        with `NA` values. The function stores information about which
-        rows have been removed in an attribute of the cleaned
-        `data.frame`.
+- [`tidyr::full_seq()`](https://tidyr.tidyverse.org/reference/full_seq.html)
+  - This function creates the full sequence of values in a vector. It
+    takes in a numeric vector, a period, and the numerical tolerance for
+    checking periodicity. Our `fasterr` version does not take in
+    numerical tolerance, instead not taking into account any tolerance.
+- [`tidyr::fill()`](https://tidyr.tidyverse.org/reference/fill.html)
+  - This function cleans an inputted `data.frame` by filling `NA`
+    values. It takes in a direction as input, with the default being
+    “down.” Our `fasterr` version does not take in a direction, using
+    the default, meaning `NA` values are filled with the last valid non
+    `NA` value as you move down the `data.frame`.
+- [`stats::na.omit()`](https://www.rdocumentation.org/packages/data.table/versions/1.16.2/topics/na.omit.data.table)
+  - This function cleans an inputted `data.frame`, removing rows with
+    `NA` values. The function stores information about which rows have
+    been removed in an attribute of the cleaned `data.frame`.
 
 ## Optimized Functions
 
@@ -68,11 +70,13 @@ full_seq_results <- microbenchmark::microbenchmark(
     fasterr_full_seq = fasterr:::full_seq(seq, step),
     times = 100
   )
+#> Warning in microbenchmark::microbenchmark(tidyr_full_seq = tidyr::full_seq(seq,
+#> : less accurate nanosecond times to avoid potential integer overflows
 
 summary(full_seq_results)
-#>               expr    min      lq       mean median      uq        max neval
-#> 1   tidyr_full_seq 30.865 31.8840 4926.25004 32.713 33.2025 489230.075   100
-#> 2 fasterr_full_seq  2.353  2.6675    8.97584  3.746  4.0060    543.471   100
+#>               expr   min      lq       mean median      uq       max neval
+#> 1   tidyr_full_seq 14842 15682.5 1567408.27  16113 16748.5 155117473   100
+#> 2 fasterr_full_seq   861   984.0    3358.31   1148  1271.0    222015   100
 ggplot2::autoplot(full_seq_results)
 ```
 
@@ -88,12 +92,12 @@ fill_results <- microbenchmark::microbenchmark(
   )
 
 summary(fill_results)
-#>                   expr      min       lq       mean    median       uq
-#> 1           tidyr_fill 6299.547 6521.974 8119.05797 6904.6345 8829.179
-#> 2 fasterr_fill_forward    6.412    7.654   17.22815   13.2055   19.206
-#>         max neval
-#> 1 30753.347   100
-#> 2   286.735   100
+#>                   expr      min       lq       mean  median        uq      max
+#> 1           tidyr_fill 1668.577 1697.092 1979.76741 1779.40 1932.3505 9542.258
+#> 2 fasterr_fill_forward    2.296    2.665    4.31197    3.69    4.4075   29.561
+#>   neval
+#> 1   100
+#> 2   100
 ggplot2::autoplot(fill_results)
 ```
 
@@ -109,9 +113,9 @@ omit_na_results <- microbenchmark::microbenchmark(
   )
 
 summary(omit_na_results)
-#>              expr     min       lq     mean   median       uq     max neval
-#> 1   stats_na.omit 134.890 147.8000 153.2393 150.7025 153.9625 220.966   100
-#> 2 fasterr_omit_na  86.229  94.8345 100.9101  97.6380 100.5295 254.960   100
+#>              expr    min      lq     mean  median     uq     max neval
+#> 1   stats_na.omit 42.599 43.7265 46.97042 45.2845 46.904  94.669   100
+#> 2 fasterr_omit_na 26.568 27.9825 31.06119 28.8230 30.053 106.846   100
 ggplot2::autoplot(omit_na_results)
 ```
 
@@ -119,5 +123,5 @@ ggplot2::autoplot(omit_na_results)
 
 ## Contributors
 
--   [Emma Ruckle](https://github.com/emruckle)
--   [Molly Daniel](https://github.com/mollyd13)
+- [Emma Ruckle](https://github.com/emruckle)
+- [Molly Daniel](https://github.com/mollyd13)

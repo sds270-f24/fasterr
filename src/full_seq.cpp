@@ -22,6 +22,13 @@ NumericVector full_seq(NumericVector x, double step) {
   double min_val = x[0];
   double max_val = x[x.size() - 1];
   
+  //check if the sequence can be filled
+  for (int i=0; i<x.size(); i++){
+    if (std::fmod(x[i] - min_val, step) != 0) {
+      stop("Inputted vector is not a regular sequence");
+    }
+  }
+  
   // initialize vector with correct size
   int n = static_cast<int>((max_val - min_val) / step) + 1;
   NumericVector result(n);
