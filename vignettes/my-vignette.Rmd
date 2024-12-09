@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Welcome to fasterr! This package is designed to optimize existing functions in the tidyr package. Let's get started by installing the package.
+Welcome to fasterr! This package is designed to optimize existing functions in the tidyr and stats packages. Let's get started by installing the package.
 
 ## Installation
 
