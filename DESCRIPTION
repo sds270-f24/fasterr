@@ -5,7 +5,7 @@ Authors@R: c(
     person("Molly", "Daniel", , "mjdaniel@smith.edu", role = c("aut", "cre")),
     person("Emma", "Ruckle", , "emruckle@smith.edu", role = c("aut"))
   )
-Description: fasterr optimizes R programming be replacing slow R code with faster, equivalent C++ code.
+Description: fasterr optimizes R programming by replacing slow R code with faster, equivalent C++ code.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
